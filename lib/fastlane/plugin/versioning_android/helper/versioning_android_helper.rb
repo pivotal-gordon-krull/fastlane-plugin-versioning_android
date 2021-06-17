@@ -26,10 +26,12 @@ module Fastlane
       end
 
       def self.get_new_version_name(gradle_file, new_version_name, bump_type = nil)
-        
+        UI.success("bump type: #{bump_type}")
         current_version_name = self.read_key_from_gradle_file(gradle_file, "versionName")
         current_version_parts = current_version_name.split(/[.]/)
 
+        UI.success("current_version_name: #{current_version_name}")
+        UI.success("current_version_parts: #{current_version_parts}")
         major = current_version_parts[0].to_i
         minor = current_version_parts[1].to_i
         patch = current_version_parts[2].to_i
@@ -41,7 +43,7 @@ module Fastlane
         elsif bump_type == "patch"
           new_version_name = "#{major}.#{minor}.#{patch + 1}"
         end
-
+        UI.success("new_version_name: #{new_version_name}")
         return new_version_name.to_s
       end
 
